@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: es-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: kibana.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: es-kibana-svc
+                port:
+                  number: 5601
+    - host: es.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: es-svc
+                port:
+                  number: 9200
